@@ -1,0 +1,207 @@
+/* ===== Tokens ===== */
+:root {
+    --bg: #0a0e17;
+    --surface: #11182a;
+    --surface-border: #1f2c45;
+    --text: #e7ecf7;
+    --text-dim: #7a88a8;
+    --cyan: #4cf2e0;
+    --violet: #9b6bff;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-display);
+    overflow-x: hidden;
+    padding: 24px;
+    position: relative;
+}
+
+/* ===== Background atmosphere ===== */
+.bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.glow-cyan {
+    width: 380px;
+    height: 380px;
+    background: var(--cyan);
+    top: -120px;
+    left: -120px;
+}
+
+.glow-violet {
+    width: 420px;
+    height: 420px;
+    background: var(--violet);
+    bottom: -140px;
+    right: -140px;
+}
+
+/* ===== Card ===== */
+.card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 620px;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    border-radius: 18px;
+    padding: 48px;
+    box-shadow:
+        0 0 0 1px rgba(76, 242, 224, 0.04),
+        0 20px 60px -20px rgba(0, 0, 0, 0.6);
+    animation: fadeIn 0.6s ease-out;
+}
+
+.tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--cyan);
+    letter-spacing: 0.05em;
+    margin-bottom: 28px;
+}
+
+#quote {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    min-height: 100px;
+    transition: opacity 0.25s ease;
+}
+
+#author {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 36px;
+    transition: opacity 0.25s ease;
+}
+
+.fade {
+    opacity: 0;
+}
+
+/* ===== Actions ===== */
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn-primary {
+    flex: 1;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, var(--cyan), var(--violet));
+    color: #06080f;
+    box-shadow: 0 0 24px -6px var(--cyan);
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 32px -4px var(--cyan);
+}
+
+.btn-icon {
+    padding: 14px 22px;
+    background: transparent;
+    border: 1px solid var(--surface-border);
+    color: var(--text-dim);
+}
+
+.btn-icon:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+}
+
+.copy-status {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--cyan);
+    margin-top: 14px;
+    height: 16px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.copy-status.show {
+    opacity: 1;
+}
+
+/* ===== Footer ===== */
+.footer {
+    margin-top: 24px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+    .card {
+        padding: 32px 24px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn-icon {
+        order: 2;
+    }
+}
